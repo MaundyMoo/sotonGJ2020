@@ -7,7 +7,6 @@
 #include "Monster.cpp"
 #include "Goal.cpp"
 #include "Entity.cpp"
-#include "SpriteSheet.cpp"
 
 class Game : public olc::PixelGameEngine
 {	
@@ -23,7 +22,6 @@ private:
 	int level = 1;
 	Goal goal = Goal(1200, 25*TILESIZE); 
 	olc::Sprite fact_sprite = olc::Sprite("assets/factory.png");
-	Assets assets;
 
 private:
 	void checkInputs() 
@@ -130,9 +128,6 @@ public:
 		entities.push_back((Entity*)&monster);
 		// Called at the start	
 		system("canberra-gtk-play -f assets/audio.ogg");
-		
-		//Loads Assets from Spritesheet
-		assets.loadSprites();
 		
 		for(int x = 0; x < ScreenWidth(); x++)
 			for(int y = 0; y < ScreenHeight(); y++)
