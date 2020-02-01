@@ -11,7 +11,7 @@
 class Game : public olc::PixelGameEngine
 {	
 private:
-	Player player = Player(100, 150);
+	Player player = Player(200, 200);
 	Monster monster = Monster(20, 20);
 	std::vector<Entity*> entities;
 	int map[(int)SCREEN_HEIGHT/TILESIZE][(int)SCREEN_WIDTH/TILESIZE];
@@ -193,7 +193,7 @@ public:
 		{
 			for(auto &e:entities) 
 			{
-				e->update(map);
+				e->update(&map);
 			}
 			
 			// monster update

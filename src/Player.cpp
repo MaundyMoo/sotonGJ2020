@@ -15,7 +15,7 @@ private:
 	bool moving = false;
 	float grav_vel = 0.0f;
 	float run_vel = 0.0f; 
-	int checkX, checkY;
+	int checkX, checkY, yindex, xindex;
 	bool throughWall = false;
 	float firstWall;
 public:
@@ -57,7 +57,7 @@ public:
 	{
 		return direction;
 	}		
-	void update(int *inputmap[SCREEN_HEIGHT/TILESIZE][SCREEN_WIDTH/TILESIZE]) override
+	void update(int (*inputmap)[SCREEN_HEIGHT/TILESIZE][SCREEN_WIDTH/TILESIZE]) override
 	{
 		// Some acceleration
 		if(moving) {
@@ -67,10 +67,13 @@ public:
 			run_vel -= 0.05f;
 			if(run_vel <= 0.0f) run_vel = 0.0f;
 		}
-		checkX = getX() + (getSpeed() * run_vel * direction);
-		checkY = getY() + y_vel;
-		for(int i=0;i<50;i++){
-			if(inputmap[(int)(getY()+i*(checkY-getY())/50)][(int)(getX()+i*(checkX-getX())/50)]==1){
+		checkX = x + (getSpeed() * run_vel * direction);
+		checkY = y + y_vel;
+		int checkAmount = 20;
+		for(int i=1;i<checkAmount;i++){
+			yindex = (y + (i * (checkY-y)/checkAmount))/TILESIZE;
+			xindex = (x + (i * (checkX-x)/checkAmount))/TILESIZE;
+			if((*inputmap)[yindex][xindex]==1){
 				if(!throughWall)
 					firstWall = i;
 				throughWall=true;
@@ -81,9 +84,11 @@ public:
 		{
 			if(!throughWall){
 				setY(getY() + y_vel);
+
 			}
 			else{
-				setY((int)(getY()+(checkY-getY())*i/50));
+				setY((int)(getY()+(checkY-getY())*firstWall/checkAmount));
+				throughWall = false;
 			}
 			y_vel += GRAVITY * grav_vel; 	
 			grav_vel += 0.01f;
@@ -95,7 +100,8 @@ public:
 			setX(getX() + (getSpeed() * run_vel * direction));
 		}
 		else{
-			setX((int)(getX()+(checkX-getX())*firstWall/50));
+			setX((int)(getX()+(checkX-getX())*firstWall/checkAmount));
+			throughWall = false;
 		}
 	}	
 	

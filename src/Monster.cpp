@@ -20,7 +20,7 @@ public:
 		return this->speed;
 	}
 
-	void update() override
+	void update(int (*inputmap)[SCREEN_HEIGHT/TILESIZE][SCREEN_WIDTH/TILESIZE]) override
 	{
 		// Horizontal boundaries
 		if(this->x<0){

@@ -1,3 +1,4 @@
+#include "include/constants.h"
 #ifndef ENTITY
 #define ENTITY
 class Entity
@@ -12,7 +13,7 @@ class Entity
             this->y = y;
         }
 
-        virtual void update() = 0;
+        virtual void update(int (*inputmap)[SCREEN_HEIGHT/TILESIZE][SCREEN_WIDTH/TILESIZE]) = 0;
 
         int getX()
         {
