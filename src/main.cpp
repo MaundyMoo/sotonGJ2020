@@ -72,7 +72,7 @@ private:
 			int closestTileY = GetMouseY()/TILESIZE;
 			if (!(map[closestTileY][closestTileX]==1)){
 				map[closestTileY][closestTileX]=1;
-				DrawSprite((closestTileX)*TILESIZE, (closestTileY)*TILESIZE, new olc::Sprite("assets/block.png"));
+				DrawSprite((closestTileX)*TILESIZE, (closestTileY)*TILESIZE, assets.block);
 				drawJuice--;
 			}
 		}
@@ -102,16 +102,16 @@ private:
 					
 					if(map[tileY+i][tileX+j]==1)
 					{
-						DrawSprite((tileX+j)*TILESIZE, (tileY+i)*TILESIZE, new olc::Sprite("assets/block.png"));
+						DrawSprite((tileX+j)*TILESIZE, (tileY+i)*TILESIZE, assets.block);
 					}
 				}
 			}	
 		}
 		
 			// Draw the player
-		DrawSprite(this->player.getX()-TILESIZE, this->player.getY()-TILESIZE, new olc::Sprite("assets/waluigi_right1.png"), 2);
+		DrawSprite(this->player.getX()-TILESIZE, this->player.getY()-TILESIZE, assets.waluigi[2][0]);
 			// Draw the monster
-		DrawPartialSprite(monster.getX(), monster.getY(), new olc::Sprite("assets/spritesheet_transparent.png"), 0, 5*16, 16, 16, 2);
+		DrawSprite(monster.getX(), monster.getY(), assets.gnw[0]);
 			// draw juice meter
 		FillRect((SCREEN_WIDTH/2) - drawJuiceMax , 20, drawJuiceMax*2, 40, olc::Pixel(0,0,0)); 
 		FillRect((SCREEN_WIDTH/2) - drawJuiceMax, 20, drawJuice*2, 40, olc::Pixel(100,255,50));
@@ -158,9 +158,9 @@ public:
 							DrawPartialSprite(i*TILESIZE,j*TILESIZE, &fact_sprite, i*TILESIZE,j*TILESIZE,TILESIZE,TILESIZE);
 					for(int i=0;i<SCREEN_WIDTH/TILESIZE;i++){
 						map[10][i]=1;
-						DrawSprite(i*TILESIZE, 10*TILESIZE, new olc::Sprite("assets/block.png"));
+						DrawSprite(i*TILESIZE, 10*TILESIZE, assets.block);
 					}
-					DrawSprite(goal.getx(), goal.gety(), new olc::Sprite("assets/spanner1.png"));
+					DrawSprite(goal.getx(), goal.gety(), assets.goal);
 					break;
 				case 2:
 					FillRect(0,0,SCREEN_WIDTH-1, SCREEN_HEIGHT-1, olc::Pixel(50,200,50));
@@ -168,11 +168,11 @@ public:
 					goal.sety(25*TILESIZE);
 					for(int i=0;i<SCREEN_WIDTH/TILESIZE;i++){
 						map[i][20] = 1;
-						DrawSprite(i*TILESIZE, 20*TILESIZE, new olc::Sprite("assets/block.png"));
+						DrawSprite(i*TILESIZE, 20*TILESIZE, assets.block);
 					}
 					for(int i=SCREEN_WIDTH*3/TILESIZE;i<SCREEN_WIDTH/TILESIZE;i++){
 						map[30][i] = 1;
-						DrawSprite(i*TILESIZE, 20*TILESIZE, new olc::Sprite("assets/block.png"));
+						DrawSprite(i*TILESIZE, 20*TILESIZE, assets.block);
 					}
 					break;
 			}
